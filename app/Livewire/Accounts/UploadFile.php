@@ -2,8 +2,10 @@
 
 namespace App\Livewire\Accounts;
 
-use App\Jobs\ProcessUploadJob;
+use App\Enums\Filetype;
+use App\Jobs\ProcessCsvUploadJob;
 use App\Models\Account;
+use Flux\Flux;
 use Illuminate\Contracts\View\View;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
@@ -34,6 +36,10 @@ class UploadFile extends Component
             'size' => $this->file->getSize(),
         ]);
 
-        ProcessUploadJob::dispatch($upload);
+        if ($this->account->filetype === Filetype::Csv) {
+            ProcessCsvUploadJob::dispatch($upload);
+        } else {
+            Flux::toast('Unknown account type', variant: 'warning');
+        }
     }
 }

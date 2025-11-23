@@ -9,11 +9,9 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 
-class ProcessUploadJob implements ShouldQueue
+abstract class ProcessUploadJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    public function __construct(private readonly Upload $upload) {}
-
-    public function handle(): void {}
+    public function __construct(protected readonly Upload $upload) {}
 }
