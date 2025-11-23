@@ -14,5 +14,14 @@ class ProcessCsvUploadJob extends ProcessUploadJob
         } else {
             $headers = [];
         }
+
+        while (! feof($stream)) {
+            $row = fgetcsv($stream);
+            if (! empty($headers)) {
+                $row = array_combine($headers, $row);
+            }
+
+            $this->processTransaction($row);
+        }
     }
 }

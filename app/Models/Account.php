@@ -6,6 +6,7 @@ use App\Enums\Filetype;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Arr;
 
 class Account extends Model
 {
@@ -37,5 +38,15 @@ class Account extends Model
     public function uploads(): HasMany
     {
         return $this->hasMany(Upload::class);
+    }
+
+    public function mapTransaction(array $transaction): array
+    {
+        $result = [];
+        foreach($this->fields as $field) {
+            $result[$field->destination_field] = $field->mapFromTransaction($transaction);
+        }
+
+        return $result;
     }
 }

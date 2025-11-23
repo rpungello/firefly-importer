@@ -21,4 +21,9 @@ class Upload extends Model
     {
         return $this->belongsTo(Account::class);
     }
+
+    public function mapTransaction(array $transaction): array
+    {
+        return $this->account->mapTransaction($transaction);
+    }
 }

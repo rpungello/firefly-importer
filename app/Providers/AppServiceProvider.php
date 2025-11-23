@@ -25,7 +25,8 @@ class AppServiceProvider extends ServiceProvider
                 ->acceptJson()
                 ->asJson()
                 ->withToken(config('services.firefly.token'))
-                ->withUserAgent('rpungello/firefly-importer');
+                ->withUserAgent('rpungello/firefly-importer')
+                ->throw();
         });
     }
 }
