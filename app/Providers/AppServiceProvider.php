@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -19,6 +20,12 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        Http::macro('firefly', function () {
+            return Http::baseUrl(config('services.firefly.base_uri'))
+                ->acceptJson()
+                ->asJson()
+                ->withToken(config('services.firefly.token'))
+                ->withUserAgent('rpungello/firefly-importer');
+        });
     }
 }

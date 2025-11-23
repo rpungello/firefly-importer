@@ -35,4 +35,9 @@ return [
         ],
     ],
 
+    'firefly' => [
+        'base_uri' => env('FIREFLY_BASE_URI'),
+        'token' => env('FIREFLY_TOKEN'),
+    ],
+
 ];
