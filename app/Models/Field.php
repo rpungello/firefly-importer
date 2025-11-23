@@ -73,7 +73,7 @@ class Field extends Model
 
     private function applyCaseStep(array $step, string $value): string
     {
-        foreach($step['cases'] as $search => $replace) {
+        foreach ($step['cases'] as $search => $replace) {
             if ($search === $value) {
                 return $replace;
             }
