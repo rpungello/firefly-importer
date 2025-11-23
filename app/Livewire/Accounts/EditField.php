@@ -9,6 +9,7 @@ use Livewire\Component;
 class EditField extends Component
 {
     public Field $field;
+
     public function render(): View
     {
         return view('livewire.accounts.edit-field');
