@@ -29,6 +29,7 @@ class EditField extends Component
             $this->map = json_encode($this->field->map, JSON_PRETTY_PRINT);
         }
     }
+
     public function render(): View
     {
         return view('livewire.accounts.edit-field');
