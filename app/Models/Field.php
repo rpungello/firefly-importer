@@ -25,7 +25,7 @@ class Field extends Model
     protected function casts(): array
     {
         return [
-            'map' => 'array',
+            'map' => 'json',
         ];
     }
 }
