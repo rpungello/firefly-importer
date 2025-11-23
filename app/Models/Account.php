@@ -29,6 +29,11 @@ class Account extends Model
         ];
     }
 
+    public function fields(): HasMany
+    {
+        return $this->hasMany(Field::class);
+    }
+
     public function uploads(): HasMany
     {
         return $this->hasMany(Upload::class);
