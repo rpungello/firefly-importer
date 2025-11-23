@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Accounts;
 
+use App\Jobs\ProcessUploadJob;
 use App\Models\Account;
 use Illuminate\Contracts\View\View;
 use Livewire\Attributes\Validate;
@@ -26,5 +27,13 @@ class UploadFile extends Component
     public function submit(): void
     {
         $this->validate();
+
+        $upload = $this->account->uploads()->create([
+            'disk' => config('filesystems.default'),
+            'path' => $this->file->store('uploads'),
+            'size' => $this->file->getSize(),
+        ]);
+
+        ProcessUploadJob::dispatch($upload);
     }
 }

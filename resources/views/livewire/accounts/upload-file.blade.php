@@ -15,6 +15,12 @@
             />
         </flux:file-upload>
 
+        @if($file)
+            <flux:file-item :heading="$file->getClientOriginalName()"
+                            :size="$file->getSize()"
+            />
+        @endif
+
         <flux:button type="submit" variant="primary">
             {{ __('Upload') }}
         </flux:button>
