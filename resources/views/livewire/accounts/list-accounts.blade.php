@@ -20,7 +20,13 @@
                         </flux:link>
                     </flux:table.cell>
                     <flux:table.cell>{{ $account->account_number }}</flux:table.cell>
-                    <flux:table.cell>{{ $account->credit_card }}</flux:table.cell>
+                    <flux:table.cell>
+                        @if($account->credit_card)
+                            <flux:icon name="check-circle" class="text-green-500"></flux:icon>
+                        @else
+                            <flux:icon name="x-circle" class="text-red-500"></flux:icon>
+                        @endif
+                    </flux:table.cell>
                     <flux:table.cell>
                         <flux:button variant="primary" :href="route('accounts.upload', $account)" icon="arrow-up-tray" />
                     </flux:table.cell>
