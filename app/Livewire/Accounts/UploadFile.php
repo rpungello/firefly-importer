@@ -17,6 +17,7 @@ class UploadFile extends Component
 
     #[Validate(['required', 'file'])]
     public ?TemporaryUploadedFile $file = null;
+
     public function render(): View
     {
         return view('livewire.accounts.upload-file');
