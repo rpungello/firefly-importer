@@ -25,6 +25,10 @@ class EditAccount extends Component
 
     public string $filetype = '';
 
+    public string $newFieldSource = '';
+
+    public string $newFieldDestination = '';
+
     public function mount(): void
     {
         $this->name = $this->account->name;
@@ -57,5 +61,20 @@ class EditAccount extends Component
         $this->account->update($this->validate());
 
         Flux::toast('Account updated', variant: 'success');
+    }
+
+    public function saveField(): void
+    {
+        $data = $this->validate([
+            'newFieldSource' => ['required', 'string'],
+            'newFieldDestination' => ['required', 'string'],
+        ]);
+
+        $field = $this->account->fields()->create([
+            'source_name' => $data['newFieldSource'],
+            'destination_field' => $data['newFieldDestination'],
+        ]);
+
+        $this->redirectRoute('fields.edit', $field);
     }
 }

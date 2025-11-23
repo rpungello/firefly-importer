@@ -2,6 +2,7 @@
 
 use App\Livewire\Accounts\CreateAccount;
 use App\Livewire\Accounts\EditAccount;
+use App\Livewire\Accounts\EditField;
 use App\Livewire\Accounts\ListAccounts;
 use App\Livewire\Accounts\UploadFile;
 use App\Livewire\Settings\Appearance;
@@ -41,4 +42,5 @@ Route::middleware(['auth'])->group(function () {
     Route::get('accounts/create', CreateAccount::class)->name('accounts.create');
     Route::get('accounts/{account}', EditAccount::class)->name('accounts.edit');
     Route::get('accounts/{account}/upload', UploadFile::class)->name('accounts.upload');
+    Route::get('fields/{field}', EditField::class)->name('fields.edit');
 });

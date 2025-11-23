@@ -21,5 +21,39 @@
         <flux:button type="submit" variant="primary">
             {{ __('Save') }}
         </flux:button>
+
+        <flux:modal.trigger name="add-field">
+            <flux:button>{{ __('Add Field') }}</flux:button>
+        </flux:modal.trigger>
     </form>
+
+    <flux:table>
+        <flux:table.columns>
+            <flux:table.column>{{ __('Source Name') }}</flux:table.column>
+            <flux:table.column>{{ __('Destination Field') }}</flux:table.column>
+        </flux:table.columns>
+        <flux:table.rows>
+            @foreach($account->fields as $field)
+                <flux:table.row>
+                    <flux:table.cell>{{ $field->source_name }}</flux:table.cell>
+                    <flux:table.cell>{{ $field->destination_field }}</flux:table.cell>
+                </flux:table.row>
+            @endforeach
+        </flux:table.rows>
+    </flux:table>
+
+    <flux:modal name="add-field">
+        <form class="space-y-6" wire:submit.prevent="saveField">
+            <div>
+                <flux:heading size="lg">Add a new field</flux:heading>
+                <flux:text class="mt-2">You'll be able to configure additional settings once created</flux:text>
+            </div>
+            <flux:input wire:model="newFieldSource" :label="__('Source Name')" />
+            <flux:input wire:model="newFieldDestination" :label="__('Destination Field')" />
+            <div class="flex">
+                <flux:spacer />
+                <flux:button type="submit" variant="primary">{{ __('Save') }}</flux:button>
+            </div>
+        </form>
+    </flux:modal>
 </div>
