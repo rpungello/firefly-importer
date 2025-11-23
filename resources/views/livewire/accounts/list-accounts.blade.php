@@ -1,4 +1,9 @@
-<div>
+<div class="space-y-4">
+    <flux:breadcrumbs>
+        <flux:breadcrumbs.item :href="route('dashboard')">{{ __('Home') }}</flux:breadcrumbs.item>
+        <flux:breadcrumbs.item>{{ __('Accounts') }}</flux:breadcrumbs.item>
+    </flux:breadcrumbs>
+
     <flux:table :paginate="$accounts">
         <flux:table.columns>
             <flux:table.column>{{ __('Name') }}</flux:table.column>
@@ -17,7 +22,7 @@
                     <flux:table.cell>{{ $account->account_number }}</flux:table.cell>
                     <flux:table.cell>{{ $account->credit_card }}</flux:table.cell>
                     <flux:table.cell>
-
+                        <flux:button variant="primary" :href="route('accounts.upload', $account)" icon="arrow-up-tray" />
                     </flux:table.cell>
                 </flux:table.row>
             @endforeach
