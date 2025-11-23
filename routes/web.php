@@ -1,5 +1,8 @@
 <?php
 
+use App\Livewire\Accounts\CreateAccount;
+use App\Livewire\Accounts\EditAccount;
+use App\Livewire\Accounts\ListAccounts;
 use App\Livewire\Settings\Appearance;
 use App\Livewire\Settings\Password;
 use App\Livewire\Settings\Profile;
@@ -32,4 +35,8 @@ Route::middleware(['auth'])->group(function () {
             ),
         )
         ->name('two-factor.show');
+
+    Route::get('accounts', ListAccounts::class)->name('accounts.index');
+    Route::get('accounts/create', CreateAccount::class)->name('accounts.create');
+    Route::get('accounts/{account}', EditAccount::class)->name('accounts.edit');
 });

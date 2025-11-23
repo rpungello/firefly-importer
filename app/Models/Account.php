@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\Filetype;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -23,6 +24,7 @@ class Account extends Model
         return [
             'credit_card' => 'boolean',
             'headers' => 'boolean',
+            'filetype' => Filetype::class,
         ];
     }
 }
