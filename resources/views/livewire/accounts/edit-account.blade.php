@@ -35,7 +35,11 @@
         <flux:table.rows>
             @foreach($account->fields as $field)
                 <flux:table.row>
-                    <flux:table.cell>{{ $field->source_name }}</flux:table.cell>
+                    <flux:table.cell>
+                        <flux:link :href="route('fields.edit', $field)">
+                            {{ $field->source_name }}
+                        </flux:link>
+                    </flux:table.cell>
                     <flux:table.cell>{{ $field->destination_field }}</flux:table.cell>
                 </flux:table.row>
             @endforeach
