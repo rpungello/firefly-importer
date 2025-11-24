@@ -2,16 +2,27 @@ name: firefly-importer
 services:
   app:
     image: "ghcr.io/rpungello/firefly-importer:${IMAGE_TAG:-latest}"
+    environment:
+      - NIGHTWATCH_INGEST_URI=http://nightwatch:2407
     env_file: .env
     ports:
       - '${WEB_PORT:-80}:8000'
     restart: unless-stopped
     healthcheck:
-        test: ["CMD", "curl", "-f", "http://localhost:8000/up"]
+      test: [ "CMD", "curl", "-f", "http://localhost:8000/up" ]
   horizon:
     image: "ghcr.io/rpungello/firefly-importer:${IMAGE_TAG:-latest}"
+    environment:
+      - NIGHTWATCH_INGEST_URI=http://nightwatch:2407
     env_file: .env
+    entrypoint: [ "php", "artisan", "horizon" ]
     restart: unless-stopped
-    entrypoint: ["php", "artisan", "horizon"]
     healthcheck:
-        test: ["CMD", "php", "artisan", "horizon:status"]
+      test: [ "CMD", "php", "artisan", "horizon:status" ]
+  nightwatch:
+    image: "laravelphp/nightwatch-agent:latest"
+    environment:
+      - NIGHTWATCH_TOKEN=${NIGHTWATCH_TOKEN}
+    restart: unless-stopped
+    healthcheck:
+      test: [ "CMD", "php", "artisan", "nightwatch:status" ]
