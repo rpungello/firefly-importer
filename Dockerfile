@@ -12,6 +12,7 @@ COPY . /app
 RUN --mount=type=secret,id=FLUX_LICENSE_KEY \
     useradd ${USER} \
  && setcap -r /usr/local/bin/frankenphp \
+ && install-php-extensions decimal \
  && composer config "http-basic.composer.fluxui.dev" "${FLUX_USERNAME}" "$(cat /run/secrets/FLUX_LICENSE_KEY)" \
  && composer install && npm install && npm run build \
  && mkdir /config/psysh && chown -R ${USER}:${USER} /config/psysh \
