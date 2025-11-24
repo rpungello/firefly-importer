@@ -25,4 +25,4 @@ services:
       - NIGHTWATCH_TOKEN=${NIGHTWATCH_TOKEN}
     restart: unless-stopped
     healthcheck:
-      test: [ "CMD", "php", "artisan", "nightwatch:status" ]
+      test: [ "CMD", "php", "nightwatch-status" ]
