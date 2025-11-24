@@ -2,6 +2,10 @@
 
 All notable changes to `rpungello/firefly-importer` will be documented in this file.
 
+## 0.1.3 - 2025-11-24
+
+Various fixes
+
 ## 0.1.2 - 2025-11-24
 
 Add Laravel Nightwatch
