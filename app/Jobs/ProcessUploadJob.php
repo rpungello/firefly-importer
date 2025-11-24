@@ -10,6 +10,7 @@ use Illuminate\Http\Client\ConnectionException;
 use Illuminate\Http\Client\RequestException;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 
@@ -19,18 +20,26 @@ abstract class ProcessUploadJob implements ShouldQueue
 
     public function __construct(protected readonly Upload $upload) {}
 
-    protected function processTransaction(array $transaction): void
+    public function handle(): void
     {
-        $mapped = $this->upload->mapTransaction($transaction);
+        $transactions = $this->buildTransactionsFromSource();
+        $request = [
+            'apply_rules' => false,
+            'fire_webhooks' => true,
+            'group_title' => "rpungello/firefly-importer (upload {$this->upload->getKey()})",
+            'transactions' => $transactions->toArray(),
+        ];
 
         try {
-            $response = Http::firefly()->post('/v1/transactions', $mapped);
+            Http::firefly()->post('/v1/transactions', $request);
         } catch (ConnectionException|RequestException $e) {
             Log::error($e->getMessage(), [
                 'upload_id' => $this->upload->getKey(),
-                'transaction' => $transaction,
-                'mapped' => $mapped,
+                'exception' => $e->getMessage(),
+                'exception_class' => get_class($e),
             ]);
         }
     }
+
+    abstract protected function buildTransactionsFromSource(): Collection;
 }

@@ -2,13 +2,16 @@
 
 namespace App\Jobs;
 
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Storage;
 
 class ProcessCsvUploadJob extends ProcessUploadJob
 {
-    public function handle(): void
+    protected function buildTransactionsFromSource(): Collection
     {
         $stream = Storage::disk($this->upload->disk)->readStream($this->upload->path);
+        $result = collect();
+
         if ($this->upload->account->headers) {
             $headers = fgetcsv($stream);
         } else {
@@ -21,7 +24,11 @@ class ProcessCsvUploadJob extends ProcessUploadJob
                 $row = array_combine($headers, $row);
             }
 
-            $this->processTransaction($row);
+            $result->push(
+                $this->upload->mapTransaction($row)
+            );
         }
+
+        return $result;
     }
 }
