@@ -21,7 +21,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Http::macro('firefly', function () {
-            return Http::baseUrl(config('services.firefly.base_uri'))
+            return Http::baseUrl(config('services.firefly.base_uri').'/api')
                 ->acceptJson()
                 ->asJson()
                 ->withToken(config('services.firefly.token'))

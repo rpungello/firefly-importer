@@ -41,7 +41,9 @@ class Account extends Model
 
     public function mapTransaction(array $transaction): array
     {
-        $result = [];
+        $result = [
+            'source_id' => $this->firefly_id,
+        ];
         foreach ($this->fields as $field) {
             $result[$field->destination_field] = $field->mapFromTransaction($transaction);
         }

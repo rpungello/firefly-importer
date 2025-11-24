@@ -27,6 +27,8 @@ class ProcessCsvUploadJob extends ProcessUploadJob
             $result->push(
                 $this->upload->mapTransaction($row)
             );
+
+            return $result;
         }
 
         return $result;
