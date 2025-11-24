@@ -2,6 +2,10 @@
 
 All notable changes to `rpungello/firefly-importer` will be documented in this file.
 
+## 0.1.2 - 2025-11-24
+
+Add Laravel Nightwatch
+
 ## 0.1.1 - 2025-11-24
 
 Added `decimal` php extension to production `Dockerfile`
