@@ -2,6 +2,11 @@
 
 All notable changes to `rpungello/firefly-importer` will be documented in this file.
 
+## 0.1.4 - 2025-12-01
+
+- Upload transactions one-by-one
+- Handle non-credit card accounts
+
 ## 0.1.3 - 2025-11-24
 
 Various fixes
