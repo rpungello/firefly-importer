@@ -33,7 +33,7 @@ abstract class ProcessUploadJob implements ShouldQueue
         try {
             foreach ($transactions as $transaction) {
                 Http::firefly()->post('/v1/transactions', array_merge([
-                    'transactions' => [$transaction]
+                    'transactions' => [$transaction],
                 ], $request));
             }
         } catch (ConnectionException $e) {
