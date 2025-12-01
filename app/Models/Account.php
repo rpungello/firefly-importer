@@ -53,13 +53,24 @@ class Account extends Model
             }
         }
 
-        if ($amount->isNegative()) {
-            $result['amount'] = $amount->negate()->toFixed(2);
-            $result['destination_id'] = $this->firefly_id;
-            $result['source_name'] = $result['destination_name'];
-            unset($result['destination_name']);
+        if ($this->credit_card) {
+            if ($amount->isNegative()) {
+                $result['amount'] = $amount->negate()->toFixed(2);
+                $result['destination_id'] = $this->firefly_id;
+                $result['source_name'] = $result['destination_name'];
+                unset($result['destination_name']);
+            } else {
+                $result['source_id'] = $this->firefly_id;
+            }
         } else {
-            $result['source_id'] = $this->firefly_id;
+            if ($amount->isNegative()) {
+                $result['amount'] = $amount->negate()->toFixed(2);
+                $result['source_id'] = $this->firefly_id;
+                $result['destination_name'] = $result['source_name'];
+                unset($result['destination_name']);
+            } else {
+                $result['destination_id'] = $this->firefly_id;
+            }
         }
 
         return $result;
