@@ -28,11 +28,14 @@ abstract class ProcessUploadJob implements ShouldQueue
             'apply_rules' => false,
             'fire_webhooks' => true,
             'group_title' => "rpungello/firefly-importer (upload {$this->upload->getKey()})",
-            'transactions' => $transactions->toArray(),
         ];
 
         try {
-            Http::firefly()->post('/v1/transactions', $request);
+            foreach ($transactions as $transaction) {
+                Http::firefly()->post('/v1/transactions', array_merge([
+                    'transactions' => [$transaction]
+                ], $request));
+            }
         } catch (ConnectionException $e) {
             Log::error($e->getMessage(), [
                 'upload_id' => $this->upload->getKey(),
